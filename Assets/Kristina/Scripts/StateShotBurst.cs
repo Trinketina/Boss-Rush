@@ -2,14 +2,20 @@ namespace hatsune_miku
 {
     public class StateShotBurst : BossState
     {
-        public StateShotBurst(BossStateMachine m) : base(m)
+        float delay = 3f;
+        public StateShotBurst(BossManager m) : base(m)
         {
-
+            machine.anim.Play("FireballBurst");
+            
         }
 
         public override void OnUpdate()
         {
-            throw new System.NotImplementedException();
+            if (time > delay)
+            {
+                isComplete = true;
+                nextState = new StateIdle(machine);
+            }       
         }
     }
 }

@@ -1,20 +1,34 @@
+using hatsune_miku;
 using UnityEngine;
-
-namespace hatsune_miku
+public class BossManager : MonoBehaviour 
 {
-    public class BossManager : MonoBehaviour
-    {
-        BossStateMachine machine;
-        // Start is called before the first frame update
-        void Start()
-        {
-            machine = new BossStateMachine();
-        }
+    private BossState state;
 
-        // Update is called once per frame
-        void Update()
-        {
-            machine.Update();
-        }
+    public Animator anim {get; private set;}
+    public int phase { get; private set; } = 1;
+
+    private void Start()
+    {
+        anim = GetComponent<Animator>();
+        state = new StateIdle(this);
+        state.OnEnter();
+    }
+
+    public void Update()
+    {
+        state.OnUpdate();
+        if (state.isComplete)
+            ChangeState(state.nextState);
+    }
+    public void FixedUpdate()
+    {
+        state.OnFixedUpdate();
+    }
+
+    public void ChangeState(BossState newState)
+    {
+        state.OnExit();
+        state = newState;
+        state.OnEnter();
     }
 }

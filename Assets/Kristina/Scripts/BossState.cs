@@ -1,23 +1,30 @@
+using UnityEngine;
+
 namespace hatsune_miku
 {
     public abstract class BossState
     {
-        BossStateMachine machine;
-        public BossState(BossStateMachine m)
+        protected BossManager machine;
+
+        public BossState nextState { get; protected set; } //should be set when isComplete becomes true
+        public bool isComplete { get; protected set; } = false;
+
+        protected float startTime;
+
+        public float time => Time.time - startTime;
+
+        public BossState(BossManager m)
         {
             machine = m;
+            startTime = Time.time;
         }
 
-        public virtual void OnEnter()
-        {
+        public virtual void OnEnter() { }
 
-        }
-        public abstract void OnUpdate();
+        public virtual void OnUpdate() { }
 
-        public virtual void OnExit()
-        {
+        public virtual void OnFixedUpdate() { }
 
-        }
-
+        public virtual void OnExit() { }
     }
 }

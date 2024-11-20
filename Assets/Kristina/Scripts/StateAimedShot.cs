@@ -2,7 +2,7 @@ namespace hatsune_miku
 {
     public class StateAimedShot : BossState
     {
-        public StateAimedShot(BossStateMachine m) : base(m)
+        public StateAimedShot(BossManager m) : base(m)
         {
 
         }
