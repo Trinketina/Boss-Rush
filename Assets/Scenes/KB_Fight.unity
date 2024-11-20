@@ -1481,6 +1481,63 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sfxMixer: {fileID: 24300002, guid: 53639ddb5998b344095692e2c4619ab0, type: 2}
+--- !u!1001 &1452228744
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5023064929523450636, guid: 712370107b95e9a439eb996b3b066827, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -3.9992437
+      objectReference: {fileID: 0}
+    - target: {fileID: 5023064929523450636, guid: 712370107b95e9a439eb996b3b066827, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5023064929523450636, guid: 712370107b95e9a439eb996b3b066827, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 4.3399887
+      objectReference: {fileID: 0}
+    - target: {fileID: 5023064929523450636, guid: 712370107b95e9a439eb996b3b066827, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.99856824
+      objectReference: {fileID: 0}
+    - target: {fileID: 5023064929523450636, guid: 712370107b95e9a439eb996b3b066827, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5023064929523450636, guid: 712370107b95e9a439eb996b3b066827, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.053493824
+      objectReference: {fileID: 0}
+    - target: {fileID: 5023064929523450636, guid: 712370107b95e9a439eb996b3b066827, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5023064929523450636, guid: 712370107b95e9a439eb996b3b066827, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5023064929523450636, guid: 712370107b95e9a439eb996b3b066827, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5023064929523450636, guid: 712370107b95e9a439eb996b3b066827, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7940349183031112916, guid: 712370107b95e9a439eb996b3b066827, type: 3}
+      propertyPath: m_Name
+      value: Tryuminuwar
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 712370107b95e9a439eb996b3b066827, type: 3}
 --- !u!1 &1514649218
 GameObject:
   m_ObjectHideFlags: 0
@@ -2729,3 +2786,4 @@ SceneRoots:
   - {fileID: 814576404}
   - {fileID: 1710097750}
   - {fileID: 544976852}
+  - {fileID: 1452228744}
