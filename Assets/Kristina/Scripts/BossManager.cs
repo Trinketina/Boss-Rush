@@ -1,34 +1,71 @@
-using hatsune_miku;
+using Cinemachine;
+using TreeEditor;
 using UnityEngine;
-public class BossManager : MonoBehaviour 
+using UnityEngine.Assertions.Must;
+
+namespace hatsune_miku
 {
-    private BossState state;
-
-    public Animator anim {get; private set;}
-    public int phase { get; private set; } = 1;
-
-    private void Start()
+    public class BossManager : MonoBehaviour
     {
-        anim = GetComponent<Animator>();
-        state = new StateIdle(this);
-        state.OnEnter();
-    }
+        
+        private Transform player;
 
-    public void Update()
-    {
-        state.OnUpdate();
-        if (state.isComplete)
-            ChangeState(state.nextState);
-    }
-    public void FixedUpdate()
-    {
-        state.OnFixedUpdate();
-    }
+        [SerializeField] private Transform head;
 
-    public void ChangeState(BossState newState)
-    {
-        state.OnExit();
-        state = newState;
-        state.OnEnter();
+        [SerializeField] private Shockwave shockwave1;
+        [SerializeField] private Shockwave shockwave2;
+
+        [SerializeField] FireburstHandler fireburstHandler;
+        public Transform Head { get; private set; }
+        public Animator anim { get; private set; }
+        public int phase /*{ get; private set; }*/ = 1;
+
+        private BossState state;
+
+        private void Start()
+        {
+            anim = GetComponent<Animator>();
+            player = FindObjectOfType<PlayerLogic>().transform;
+            Head = head;
+            state = new StateIdle(this, player);
+            state.OnEnter();
+        }
+
+        public void Update()
+        {
+            state.OnUpdate();
+            if (state.isComplete)
+                ChangeState(state.nextState);
+        }
+        public void FixedUpdate()
+        {
+            state.OnFixedUpdate();
+        }
+
+        void ChangeState(BossState newState)
+        {
+            state.OnExit();
+            state = newState;
+            state.OnEnter();
+        }
+
+
+        public void PlayShockwaveOne()
+        {
+            shockwave1.PlayShockwave();
+        }
+        public void SetAnimationSpeed(float speed)
+        {
+            anim.speed = speed;
+        }
+        public void PlayShockwaveTwo()
+        {
+            shockwave2.PlayShockwave();
+        }
+
+        public void PlayFireBurst()
+        {
+            fireburstHandler.PlayFireballBurst();
+        }
     }
 }
