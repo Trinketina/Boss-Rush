@@ -15,10 +15,12 @@ namespace hatsune_miku
         [SerializeField] private Shockwave shockwave1;
         [SerializeField] private Shockwave shockwave2;
 
-        [SerializeField] FireburstHandler fireburstHandler;
+        [SerializeField] private FireburstHandler fireburstHandler;
+
+        [SerializeField] private SwingSwipe wingSwipe;
         public Transform Head { get; private set; }
         public Animator anim { get; private set; }
-        public int phase /*{ get; private set; }*/ = 1;
+        public int phase { get; private set; } = 2;
 
         private BossState state;
 
@@ -48,8 +50,6 @@ namespace hatsune_miku
             state = newState;
             state.OnEnter();
         }
-
-
         public void PlayShockwaveOne()
         {
             shockwave1.PlayShockwave();
@@ -66,6 +66,11 @@ namespace hatsune_miku
         public void PlayFireBurst()
         {
             fireburstHandler.PlayFireballBurst();
+        }
+
+        public void PlayWingSwipe()
+        {
+            wingSwipe.PlaySwipe();
         }
     }
 }

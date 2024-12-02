@@ -9,9 +9,20 @@ namespace hatsune_miku
 
         }
 
+        public override void OnEnter()
+        {
+            machine.anim.Play("Swipe");
+            //ReadyNextState();
+        }
         public override void OnUpdate()
         {
-            throw new System.NotImplementedException();
+            //throw new System.NotImplementedException();
+        }
+
+        public override void ReadyNextState()
+        {
+            nextState = new StateIdle(machine, player);
+            isComplete = true;
         }
     }
 }

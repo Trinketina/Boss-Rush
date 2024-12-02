@@ -985,6 +985,51 @@ Transform:
   - {fileID: 5078325239655798004}
   m_Father: {fileID: 2304924107890421581}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3174327236630314613
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7675662509636802187}
+  - component: {fileID: 5884962825030699796}
+  m_Layer: 9
+  m_Name: SwipeAttack
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7675662509636802187
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3174327236630314613}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.15, z: -0.12}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5023064929523450636}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5884962825030699796
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3174327236630314613}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc17f18fa3c294c42b083d876bdc34f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particles: {fileID: 8443315704496310910, guid: 6ef35fa36e3a65043b2d800600204bdd, type: 3}
 --- !u!1 &3254769917896567269
 GameObject:
   m_ObjectHideFlags: 0
@@ -2840,7 +2885,9 @@ GameObject:
   - component: {fileID: 5023064929523450636}
   - component: {fileID: 5146061452825436365}
   - component: {fileID: 1977010934267407871}
-  m_Layer: 0
+  - component: {fileID: 3450336494178606779}
+  - component: {fileID: 5622638431546417186}
+  m_Layer: 9
   m_Name: Tryuminuwar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2857,12 +2904,13 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0.053493824, z: 0, w: 0.99856824}
   m_LocalPosition: {x: -3.9992437, y: 0, z: 4.3399887}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.3, y: 1.3, z: 1.3}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3738983341607791859}
   - {fileID: 8425347244585410503}
   - {fileID: 281991955673811722}
+  - {fileID: 7675662509636802187}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &5146061452825436365
@@ -2898,10 +2946,61 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eff052df92abf9e439fb5db6037d22e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
   head: {fileID: 8405542894012498221}
   shockwave1: {fileID: 1907137755366261808}
   shockwave2: {fileID: 2026447689695760464}
+  fireburstHandler: {fileID: 0}
+  wingSwipe: {fileID: 5884962825030699796}
+--- !u!54 &3450336494178606779
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7940349183031112916}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!136 &5622638431546417186
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7940349183031112916}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 2
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 2, z: -1}
 --- !u!1 &8046402872012798243
 GameObject:
   m_ObjectHideFlags: 0
