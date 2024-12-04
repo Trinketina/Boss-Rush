@@ -16,12 +16,17 @@ namespace hatsune_miku
         }
         public override void OnUpdate()
         {
-            //throw new System.NotImplementedException();
+            if (elapsed > 5f)
+                ReadyNextState();
         }
 
         public override void ReadyNextState()
         {
-            nextState = new StateIdle(machine, player);
+            if (machine.phase == 2)
+                nextState = new StateAimedShot(machine, player);
+            else //phase 3, should not reach here as phase 1
+                nextState = new StateHardAimShot(machine, player);
+
             isComplete = true;
         }
     }

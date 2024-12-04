@@ -18,9 +18,11 @@ namespace hatsune_miku
         [SerializeField] private FireburstHandler fireburstHandler;
 
         [SerializeField] private SwingSwipe wingSwipe;
+
+        [SerializeField] private TargettingFireball aimedFireball;
         public Transform Head { get; private set; }
         public Animator anim { get; private set; }
-        public int phase { get; private set; } = 2;
+        public int phase { get; private set; } = 1;
 
         private BossState state;
 
@@ -71,6 +73,20 @@ namespace hatsune_miku
         public void PlayWingSwipe()
         {
             wingSwipe.PlaySwipe();
+        }
+
+        public void PlayAimedShot()
+        {
+            aimedFireball.StartLockedOnAttack(true);
+        }
+
+        public void PlayBodySlam()
+        {
+
+        }
+        public void PlayNoDodgeAimedShot()
+        {
+            aimedFireball.StartLockedOnAttack(false);
         }
     }
 }

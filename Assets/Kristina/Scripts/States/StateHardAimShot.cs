@@ -2,20 +2,15 @@ using UnityEngine;
 
 namespace hatsune_miku
 {
-    public class StateAimedShot : BossState
+    public class StateHardAimShot : BossState
     {
-        public StateAimedShot(BossManager _machine, Transform _player) : base(_machine, _player)
+        public StateHardAimShot(BossManager _machine, Transform _player) : base(_machine, _player)
         {
-
+            machine.anim.SetTrigger("HardAimedAttack");
         }
-        public override void OnEnter()
-        {
-            machine.anim.SetTrigger("AimedAttack");
-        }
-
         public override void OnUpdate()
         {
-            if (elapsed > 7f)
+            if (elapsed > 4f)
                 ReadyNextState();
 
             Vector3 direction = player.position - machine.transform.position;
@@ -28,7 +23,7 @@ namespace hatsune_miku
 
         public override void ReadyNextState()
         {
-            nextState = new StateIdle(machine, player);
+            nextState = new StateBodySlam(machine, player);
             isComplete = true;
         }
     }

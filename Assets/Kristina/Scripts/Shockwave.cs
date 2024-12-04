@@ -12,19 +12,19 @@ namespace hatsune_miku
         [SerializeField] SphereCollider attacker;
         [SerializeField] GameObject particles;
         Transform player;
-        ShakeHandler screenshaker;
+        //ShakeHandler screenshaker;
 
         [SerializeField] float timeLength;
 
         private void Start()
         {
             player = FindObjectOfType<PlayerLogic>().transform;
-            screenshaker = FindObjectOfType<ShakeHandler>();
+            //screenshaker = FindObjectOfType<ShakeHandler>();
         }
         public void PlayShockwave()
         {
             StartCoroutine(MoveAttacker());
-            screenshaker.ScreenShake(3f);
+            ShakeHandler.ScreenShake(3f);
             Instantiate(particles, spline.transform);
         }
 

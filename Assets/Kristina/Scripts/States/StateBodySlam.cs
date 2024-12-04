@@ -6,16 +6,20 @@ namespace hatsune_miku
     {
         public StateBodySlam(BossManager _machine, Transform _player) : base(_machine, _player)
         {
-
-        }
-        public override void OnEnter()
-        {
             
         }
 
         public override void OnUpdate()
         {
-            throw new System.NotImplementedException();
+            //give the animation enough time to play and enter idle
+            if (elapsed > 4f)
+                ReadyNextState();
+        }
+
+        public override void ReadyNextState()
+        {
+            nextState = new StateIdle(machine, player);
+            isComplete = true;
         }
     }
 }

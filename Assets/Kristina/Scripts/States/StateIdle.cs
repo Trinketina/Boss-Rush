@@ -56,7 +56,7 @@ namespace hatsune_miku
                     nextState = new StateSwipeAttack(machine, player);
                     break;
                 case 3:
-                    nextState = new StateBodySlam(machine, player);
+                    nextState = new StateSwipeAttack(machine, player);
                     break;
             }
 

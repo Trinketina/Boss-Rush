@@ -6,7 +6,7 @@ namespace hatsune_miku
     public class ShakeHandler : MonoBehaviour
     {
         [SerializeField] CinemachineVirtualCamera vcam;
-        private CinemachineBasicMultiChannelPerlin perlin;
+        private static CinemachineBasicMultiChannelPerlin perlin;
 
         private void Start()
         {
@@ -19,7 +19,7 @@ namespace hatsune_miku
                 perlin.m_AmplitudeGain -= Time.deltaTime;
         }
 
-        public void ScreenShake(float amp)
+        public static void ScreenShake(float amp)
         {
             perlin.m_AmplitudeGain = amp;
         }
