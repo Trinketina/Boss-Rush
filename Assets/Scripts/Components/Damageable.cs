@@ -45,7 +45,7 @@ public class Damageable : MonoBehaviour
         if (currentHealth == 0)
             return false;
 
-        if(flashMaterial != null)
+        if (flashMaterial != null)
         {
             StartHitFlash();
         }
@@ -58,7 +58,7 @@ public class Damageable : MonoBehaviour
 
         OnHealthChanged?.Invoke(damage.amount, currentHealth);
 
-        if(hurtSounds != null)
+        if (hurtSounds != null)
             SoundEffectsManager.instance.PlayRandomClip(hurtSounds.clips, true);
 
         if (damageEffectPrefab != null)
@@ -79,7 +79,7 @@ public class Damageable : MonoBehaviour
     {
         OnDeath?.Invoke();
 
-        if(deathSounds != null)
+        if (deathSounds != null)
             SoundEffectsManager.instance.PlayRandomClip(deathSounds.clips, true);
     }
 
@@ -120,6 +120,35 @@ public class Damageable : MonoBehaviour
         yield return new WaitForSeconds(iTime * 0.9f);
 
         renderer.materials = originalMats;
+    }
+
+    public int GetCurrentHealth()
+    {
+        return currentHealth;
+    }
+
+    public void SetCurrentHealth(int amount)
+    {
+        currentHealth = amount;
+    }
+
+    public void AddToHealth(int amount)
+    {
+        currentHealth += amount;
+
+        if (currentHealth >= maxHealth)
+            currentHealth = maxHealth;
+
+        OnHealthChanged?.Invoke(amount, currentHealth);
+    }
+
+    public void HealToFull()
+    {
+        var diff = maxHealth - currentHealth;
+
+        currentHealth = maxHealth;
+
+        OnHealthChanged?.Invoke(diff, currentHealth);
     }
 
     [ContextMenu("Test Hit")]

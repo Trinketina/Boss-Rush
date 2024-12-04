@@ -2086,7 +2086,7 @@ MonoBehaviour:
   OnInitialize:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1747053146}
+      - m_Target: {fileID: 1747053149}
         m_TargetAssemblyTypeName: Bar, Assembly-CSharp
         m_MethodName: SetMax
         m_Mode: 0
@@ -2103,11 +2103,23 @@ MonoBehaviour:
       m_Calls: []
   OnDeath:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 642574823}
+        m_TargetAssemblyTypeName: hatsune_miku.BossManager, Assembly-CSharp
+        m_MethodName: PhaseHandler
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnHealthChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1747053146}
+      - m_Target: {fileID: 1747053149}
         m_TargetAssemblyTypeName: Bar, Assembly-CSharp
         m_MethodName: UpdateBar
         m_Mode: 0
@@ -2119,6 +2131,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &642574823 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1977010934267407871, guid: 712370107b95e9a439eb996b3b066827, type: 3}
+  m_PrefabInstance: {fileID: 1452228744}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 642574814}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eff052df92abf9e439fb5db6037d22e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -5997,7 +6020,7 @@ GameObject:
   - component: {fileID: 1747053145}
   - component: {fileID: 1747053148}
   - component: {fileID: 1747053147}
-  - component: {fileID: 1747053146}
+  - component: {fileID: 1747053149}
   m_Layer: 5
   m_Name: Boss Health Display
   m_TagString: Untagged
@@ -6028,19 +6051,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 74.2543}
   m_SizeDelta: {x: 1920, y: 148.5086}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1747053146
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1747053144}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 05bd1a2b695cfc04bb24ad003ac96559, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  barFill: {fileID: 1745016826}
 --- !u!114 &1747053147
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6079,6 +6089,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1747053144}
   m_CullTransparentMesh: 1
+--- !u!114 &1747053149
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1747053144}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05bd1a2b695cfc04bb24ad003ac96559, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  barFill: {fileID: 1745016826}
 --- !u!1 &1751232274
 GameObject:
   m_ObjectHideFlags: 0
