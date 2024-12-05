@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace hatsune_miku
@@ -11,6 +12,8 @@ namespace hatsune_miku
 
         public override void OnEnter()
         {
+            if (machine.audioHandler.timeSinceLastPlayed > 10)
+                machine.audioHandler.PlayGrowl();
             machine.anim.SetTrigger("Idle");
         }
 
@@ -29,7 +32,7 @@ namespace hatsune_miku
             else
             {
                 machine.anim.SetBool("Rotating", false);
-                machine.anim.Play("Idle");
+                machine.anim.SetTrigger("Idle");
             }
             
             if (Vector3.Distance(machine.transform.position, player.transform.position) > 12f && elapsed < 2.5f)
@@ -61,6 +64,12 @@ namespace hatsune_miku
             }
 
             isComplete = true;
+        }
+
+        public override void OnExit()
+        {
+            machine.anim.ResetTrigger("Idle");
+            machine.anim.SetBool("Rotating", false);
         }
     }
 }

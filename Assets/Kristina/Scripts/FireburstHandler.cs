@@ -11,7 +11,7 @@ namespace hatsune_miku
         {
             foreach (var fireball in fireballs)
             {
-                fireball.gameObject.SetActive(true);
+                fireball.StartFall();
             }
         }
     }

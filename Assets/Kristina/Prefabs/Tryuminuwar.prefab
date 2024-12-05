@@ -1974,7 +1974,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bf7f0c44f87add4ca24b9df21a94b4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fireballHitSound: {fileID: 0}
   initialLocation: {fileID: 5832480001618919309}
+  dodgeableMesh: {fileID: 0}
+  hitOnlyMesh: {fileID: 0}
 --- !u!1 &5143371354069910862
 GameObject:
   m_ObjectHideFlags: 0
@@ -3040,6 +3043,8 @@ GameObject:
   - component: {fileID: 1977010934267407871}
   - component: {fileID: 3450336494178606779}
   - component: {fileID: 5622638431546417186}
+  - component: {fileID: 7820254718580394566}
+  - component: {fileID: 2030604590303275178}
   m_Layer: 9
   m_Name: Tryuminuwar
   m_TagString: Untagged
@@ -3099,7 +3104,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eff052df92abf9e439fb5db6037d22e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  head: {fileID: 8405542894012498221}
   shockwave1: {fileID: 1907137755366261808}
   shockwave2: {fileID: 2026447689695760464}
   fireburstHandler: {fileID: 0}
@@ -3155,6 +3159,94 @@ CapsuleCollider:
   m_Height: 1
   m_Direction: 1
   m_Center: {x: 0, y: 2, z: -1}
+--- !u!114 &7820254718580394566
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7940349183031112916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb936639cdd91de4b9956f37ee2ea8e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 300
+  iTime: 0.5
+  flashMaterial: {fileID: 2100000, guid: f9019e987aeeba0478a8b5ec35aafbff, type: 2}
+  renderers:
+  - {fileID: 525873380375925700}
+  damageEffectPrefab: {fileID: 0}
+  hurtSounds: {fileID: 0}
+  deathSounds: {fileID: 0}
+  OnInitialize:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: Bar, Assembly-CSharp
+        m_MethodName: SetMax
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnHit:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDeath:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1977010934267407871}
+        m_TargetAssemblyTypeName: hatsune_miku.BossManager, Assembly-CSharp
+        m_MethodName: PhaseHandler
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnHealthChanged:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: Bar, Assembly-CSharp
+        m_MethodName: UpdateBar
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &2030604590303275178
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7940349183031112916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8647108901d37d548b61aebaba2f2880, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wingFlap: {fileID: 8300000, guid: cc8b05951c02e1b4091a7fa2da119a1b, type: 3}
+  dragonScream: {fileID: 8300000, guid: ea683520972966141b9d47ae5e403ef1, type: 3}
+  dragonGrowl: {fileID: 8300000, guid: 00f7fb70df4b252488fe702980213912, type: 3}
+  lightWoosh: {fileID: 8300000, guid: 4986c1d843ca391498f6837026cdef88, type: 3}
+  heavyWoosh: {fileID: 8300000, guid: 258f14f60d809aa45b37d7234d54831e, type: 3}
+  chargedFireball: {fileID: 8300000, guid: 079395a1099e02147bd665a553aa9f85, type: 3}
+  wingSmash: {fileID: 8300000, guid: f089138aceb08194ca5af21725706dbe, type: 3}
+  bodySlam: {fileID: 8300000, guid: 9bec79bc8734ed443880793e7a46d53a, type: 3}
 --- !u!1 &8046402872012798243
 GameObject:
   m_ObjectHideFlags: 0

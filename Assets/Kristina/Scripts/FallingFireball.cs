@@ -5,12 +5,14 @@ namespace hatsune_miku
 {
     public class FallingFireball : MonoBehaviour
     {
+        [SerializeField] AudioClip fireballHitSound;
         [SerializeField] Transform fallFrom;
         [SerializeField] Transform fallTo;
 
         Transform boss;
 
         MeshRenderer mesh;
+        SphereCollider scollider;
         SpriteRenderer targetSprite;
         bool stayOnGround;
         bool collided = false;
@@ -21,18 +23,25 @@ namespace hatsune_miku
         private void Start()
         {
             mesh = GetComponent<MeshRenderer>();
+            scollider = GetComponent<SphereCollider>();
             targetSprite = fallTo.GetComponent<SpriteRenderer>();
             boss = FindObjectOfType<BossManager>().transform;
         }
         private void OnEnable()
         {
-            delay = Random.value*2f; // delay from 0 - 2s
+            //StartFall();
+        }
+
+        public void StartFall()
+        {
+            delay = Random.value * 2f; // delay from 0 - 2s
 
             stayOnGround = Random.value > .8f; //30% chance it stays on ground
             collided = false;
             transform.position = fallFrom.position;
             StartCoroutine(Fall());
         }
+
         private IEnumerator Fall()
         {
             float elapsed = 0;
@@ -44,6 +53,7 @@ namespace hatsune_miku
             }
             elapsed = 0;
             mesh.enabled = true;
+            scollider.enabled = true;
             targetSprite.enabled = true;
             while (elapsed < fallTime)
             {
@@ -64,8 +74,8 @@ namespace hatsune_miku
                     yield return new WaitForEndOfFrame();
                 }
             }
-            mesh.enabled = false;
-            gameObject.SetActive(false);
+            ResetFall();
+
         }
         private IEnumerator FollowBoss()
         {
@@ -79,12 +89,18 @@ namespace hatsune_miku
                 yield return new WaitForEndOfFrame();
             }
 
-            mesh.enabled = false;
-            gameObject.SetActive(false);
+            ResetFall();
         }
 
-        private void OnDisable()
+        private void ResetFall()
         {
+            targetSprite.enabled = false;
+
+            mesh.enabled = false;
+            scollider.enabled = false;
+
+            gameObject.layer = 9;
+            
             transform.position = fallFrom.position;
         }
 
@@ -98,7 +114,8 @@ namespace hatsune_miku
                 damage.direction = -damageable.transform.forward;
                 damage.knockbackForce = 2;
 
-                damageable.Hit(damage);
+                if (damageable.Hit(damage))
+                    SoundEffectsManager.instance.PlayAudioClip(fireballHitSound, true);
             }
             else if (damageable.GetComponent<BossManager>() != null)
             {
@@ -112,6 +129,7 @@ namespace hatsune_miku
                 damage.knockbackForce = 0;
 
                 damageable.Hit(damage);
+                SoundEffectsManager.instance.PlayAudioClip(fireballHitSound, true);
             }
         }
         public void HitBack()
@@ -121,6 +139,7 @@ namespace hatsune_miku
             gameObject.layer = 8; //swap to PlayerDamage
 
             StopAllCoroutines();
+            targetSprite.enabled = false;
             StartCoroutine(FollowBoss());
         }
     }

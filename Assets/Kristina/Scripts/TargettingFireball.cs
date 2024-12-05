@@ -5,6 +5,7 @@ namespace hatsune_miku
 {
     public class TargettingFireball : MonoBehaviour
     {
+        [SerializeField] AudioClip fireballHitSound;
         bool canDodge = true;
         [SerializeField] Transform initialLocation;
 
@@ -13,6 +14,7 @@ namespace hatsune_miku
         [SerializeField] MeshRenderer dodgeableMesh;
         [SerializeField] MeshRenderer hitOnlyMesh;
         SphereCollider scollider;
+        Damager damager;
 
         bool dodged = false;
         bool collided = false;
@@ -20,6 +22,7 @@ namespace hatsune_miku
         private void Start()
         {
             player = FindObjectOfType<PlayerLogic>().transform;
+            damager = GetComponent<Damager>();
             boss = FindObjectOfType<BossManager>().transform;
             scollider = GetComponent<SphereCollider>();
         }
@@ -52,9 +55,16 @@ namespace hatsune_miku
                     transform.LookAt(player);
                 transform.Translate(Vector3.forward * speed * Time.deltaTime);
 
+                if (transform.position.y < 0)
+                {
+                    ResetFireball();
+                    dodged = false;
+                    break;
+                }
+
                 yield return new WaitForEndOfFrame();
             }
-            if (dodged)
+            /*if (dodged)
             {
                 float elapsed = 0;
                 Vector3 crashPos = transform.position;
@@ -71,8 +81,8 @@ namespace hatsune_miku
 
                     yield return new WaitForEndOfFrame();
                 }
-            }
-            else
+            }*/
+            //else
             {
                 ResetFireball();
             }
@@ -105,7 +115,7 @@ namespace hatsune_miku
 
                 if (!damageable.Hit(damage) && canDodge)
                     dodged = true;
-
+                SoundEffectsManager.instance.PlayAudioClip(fireballHitSound, true);
                 collided = true;
             }
             else if (damageable.GetComponent<BossManager>() != null)
@@ -120,6 +130,7 @@ namespace hatsune_miku
                 damage.knockbackForce = 0;
 
                 damageable.Hit(damage);
+                SoundEffectsManager.instance.PlayAudioClip(fireballHitSound, true);
             }
 
         }

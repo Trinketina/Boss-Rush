@@ -25,15 +25,19 @@ namespace hatsune_miku
         [SerializeField] private TargettingFireball aimedFireball;
         //public Transform Head { get; private set; }
         public Animator anim { get; private set; }
+
+        public BossAudioHandler audioHandler { get; private set; }
         public int phase { get; private set; } = 1;
         
         private Damageable damageable;
+
 
         private BossState state;
 
         private void Start()
         {
             anim = GetComponent<Animator>();
+            audioHandler = GetComponent<BossAudioHandler>();
             player = FindObjectOfType<PlayerLogic>().transform;
 
             damageable = GetComponent<Damageable>();
@@ -66,17 +70,18 @@ namespace hatsune_miku
             {
                 case 1:
                     damageable.HealToFull();
+                    ChangeState(new StateChangePhase(this, player));
                     phase = 2;
                     //StartCoroutine(StartPhaseTwo());
                     break;
                 case 2:
                     damageable.HealToFull();
+                    ChangeState(new StateChangePhase(this, player));
                     phase = 3;
                     //StartCoroutine(StartPhaseThree());
                     break;
-                case 3:
-
                 default:
+                    ChangeState(new StateDeath(this, player));
                     break;
             }
         }
@@ -98,17 +103,6 @@ namespace hatsune_miku
         {
             fireburstHandler.PlayFireballBurst();
         }
-        public IEnumerator StartPhaseTwo()
-        {
-            yield return new WaitForSeconds(.6f);
-
-            Damage healthBoost = new Damage();
-            healthBoost.amount = -300;
-            healthBoost.direction = Vector3.zero;
-            healthBoost.knockbackForce = 0;
-
-            phase = 2;
-        }
 
         public void PlayWingSwipe()
         {
@@ -118,20 +112,6 @@ namespace hatsune_miku
         public void PlayAimedShot()
         {
             aimedFireball.StartLockedOnAttack(true);
-        }
-
-        public IEnumerator StartPhaseThree()
-        {
-            yield return new WaitForSeconds(.6f);
-
-            Damage healthBoost = new Damage();
-            healthBoost.amount = -300;
-            healthBoost.direction = Vector3.zero;
-            healthBoost.knockbackForce = 0;
-
-            damageable.Hit(healthBoost);
-
-            phase = 3;
         }
         public void PlayNoDodgeAimedShot()
         {
