@@ -1,10 +1,13 @@
+using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace hatsune_miku
 {
     public class BossManager : MonoBehaviour
     {
-        
+        public UnityEvent OnDeath;
+
         private Transform player;
 
         //[SerializeField] private Transform head;
@@ -22,7 +25,7 @@ namespace hatsune_miku
 
         public BossAudioHandler audioHandler { get; private set; }
         public CapsuleCollider bossCollider { get; private set; }
-        public int phase { get; private set; } = 1;
+        public int phase { get; private set; } = 3;
         
         private Damageable damageable;
 
@@ -71,17 +74,22 @@ namespace hatsune_miku
                 case 1:
                     ChangeState(new StateChangePhase(this, player));
                     phase = 2;
-                    //StartCoroutine(StartPhaseTwo());
                     break;
                 case 2:
                     ChangeState(new StateChangePhase(this, player));
                     phase = 3;
-                    //StartCoroutine(StartPhaseThree());
                     break;
                 default:
                     ChangeState(new StateDeath(this, player));
+                    StartCoroutine(WaitToInvokeDeath(3));
                     break;
             }
+        }
+        private IEnumerator WaitToInvokeDeath(float seconds)
+        {
+            yield return new WaitForSeconds(seconds);
+
+            OnDeath.Invoke();
         }
         public void HealFull()
         {
