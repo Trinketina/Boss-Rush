@@ -25,7 +25,7 @@ namespace hatsune_miku
 
         public BossAudioHandler audioHandler { get; private set; }
         public CapsuleCollider bossCollider { get; private set; }
-        public int phase { get; private set; } = 3;
+        public int phase { get; private set; } = 1;
         
         private Damageable damageable;
 
