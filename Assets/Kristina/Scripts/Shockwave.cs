@@ -1,6 +1,4 @@
-using Cinemachine;
 using System.Collections;
-using TreeEditor;
 using UnityEngine;
 using UnityEngine.Splines;
 
@@ -40,7 +38,10 @@ namespace hatsune_miku
                 Vector3 playerPos = player.position;
                 playerPos.y = 0;
 
-                Quaternion lookRot = Quaternion.LookRotation(playerPos - spline.transform.position);
+                Vector3 splinePos = spline.transform.position;
+                splinePos.y = 0;
+
+                Quaternion lookRot = Quaternion.LookRotation(playerPos - splinePos);
                 spline.transform.rotation = lookRot;
 
                 attacker.transform.position = spline.EvaluatePosition(time / timeLength);

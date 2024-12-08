@@ -12,7 +12,6 @@ namespace hatsune_miku
         public override void OnEnter()
         {
             machine.anim.Play("Swipe");
-            //ReadyNextState();
         }
         public override void OnUpdate()
         {

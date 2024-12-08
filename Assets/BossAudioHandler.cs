@@ -12,9 +12,12 @@ namespace hatsune_miku
         [SerializeField] AudioClip heavyWoosh;
 
         [SerializeField] AudioClip chargedFireball;
+        [SerializeField] AudioClip firebreath;
 
         [SerializeField] AudioClip wingSmash;
         [SerializeField] AudioClip bodySlam;
+
+        [SerializeField] AudioClip legStep;
 
         public float timeSinceLastPlayed { get; private set; } = 0;
 
@@ -36,6 +39,7 @@ namespace hatsune_miku
         {
             timeSinceLastPlayed = 0;
             SoundEffectsManager.instance.PlayAudioClip(dragonScream, true);
+            ShakeHandler.ScreenShake(4.5f);
         }
         public void PlayGrowl()
         {
@@ -46,6 +50,10 @@ namespace hatsune_miku
         {
             SoundEffectsManager.instance.PlayAudioClip(chargedFireball, true);
         }
+        public void PlayFireBreath()
+        {
+            SoundEffectsManager.instance.PlayAudioClip(firebreath, true);
+        }
         public void PlayWingSmash()
         {
             SoundEffectsManager.instance.PlayAudioClip(wingSmash, true);
@@ -53,6 +61,12 @@ namespace hatsune_miku
         public void PlayBodySlam()
         {
             SoundEffectsManager.instance.PlayAudioClip(bodySlam, true);
+        }
+
+        public void PlayStep()
+        {
+            ShakeHandler.ScreenShake(1.5f);
+            SoundEffectsManager.instance.PlayAudioClip(legStep, true);
         }
     }
 }

@@ -11,7 +11,7 @@ namespace hatsune_miku
 
         Transform boss;
 
-        MeshRenderer mesh;
+        [SerializeField] GameObject fireballMesh;
         SphereCollider scollider;
         SpriteRenderer targetSprite;
         bool stayOnGround;
@@ -22,14 +22,9 @@ namespace hatsune_miku
 
         private void Start()
         {
-            mesh = GetComponent<MeshRenderer>();
             scollider = GetComponent<SphereCollider>();
             targetSprite = fallTo.GetComponent<SpriteRenderer>();
             boss = FindObjectOfType<BossManager>().transform;
-        }
-        private void OnEnable()
-        {
-            //StartFall();
         }
 
         public void StartFall()
@@ -52,7 +47,7 @@ namespace hatsune_miku
                 
             }
             elapsed = 0;
-            mesh.enabled = true;
+            fireballMesh.SetActive(true);
             scollider.enabled = true;
             targetSprite.enabled = true;
             while (elapsed < fallTime)
@@ -96,12 +91,13 @@ namespace hatsune_miku
         {
             targetSprite.enabled = false;
 
-            mesh.enabled = false;
+            fireballMesh.SetActive(false);
             scollider.enabled = false;
 
             gameObject.layer = 9;
             
             transform.position = fallFrom.position;
+            transform.rotation = fallTo.rotation;
         }
 
         private void OnTriggerEnter(Collider other)
@@ -131,6 +127,7 @@ namespace hatsune_miku
                 damageable.Hit(damage);
                 SoundEffectsManager.instance.PlayAudioClip(fireballHitSound, true);
             }
+            ShakeHandler.ScreenShake(2f);
         }
         public void HitBack()
         {

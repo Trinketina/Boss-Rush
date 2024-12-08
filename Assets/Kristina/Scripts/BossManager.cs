@@ -1,10 +1,4 @@
-using Cinemachine;
-using System.Collections;
-using System.Reflection;
-using TreeEditor;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Assertions.Must;
 
 namespace hatsune_miku
 {
@@ -27,6 +21,7 @@ namespace hatsune_miku
         public Animator anim { get; private set; }
 
         public BossAudioHandler audioHandler { get; private set; }
+        public CapsuleCollider bossCollider { get; private set; }
         public int phase { get; private set; } = 1;
         
         private Damageable damageable;
@@ -34,15 +29,20 @@ namespace hatsune_miku
 
         private BossState state;
 
-        private void Start()
+        /*private void Start()
         {
+            
+        }*/
+        private void OnEnable()
+        {
+            bossCollider = GetComponent<CapsuleCollider>();
             anim = GetComponent<Animator>();
             audioHandler = GetComponent<BossAudioHandler>();
             player = FindObjectOfType<PlayerLogic>().transform;
 
             damageable = GetComponent<Damageable>();
 
-            state = new StateIdle(this, player);
+            state = new StateWakeUp(this, player);
             state.OnEnter();
         }
 
@@ -69,13 +69,11 @@ namespace hatsune_miku
             switch (phase)
             {
                 case 1:
-                    damageable.HealToFull();
                     ChangeState(new StateChangePhase(this, player));
                     phase = 2;
                     //StartCoroutine(StartPhaseTwo());
                     break;
                 case 2:
-                    damageable.HealToFull();
                     ChangeState(new StateChangePhase(this, player));
                     phase = 3;
                     //StartCoroutine(StartPhaseThree());
@@ -84,6 +82,10 @@ namespace hatsune_miku
                     ChangeState(new StateDeath(this, player));
                     break;
             }
+        }
+        public void HealFull()
+        {
+            damageable.HealToFull();
         }
 
         public void PlayShockwaveOne()
@@ -98,10 +100,17 @@ namespace hatsune_miku
         {
             shockwave2.PlayShockwave();
         }
-
+        public void PlayParticlesFireBurst()
+        {
+            fireburstHandler.StartParticles();
+        }
         public void PlayFireBurst()
         {
             fireburstHandler.PlayFireballBurst();
+        }
+        public void StopParticlesFireBurst()
+        {
+            fireburstHandler.EndParticles();
         }
 
         public void PlayWingSwipe()

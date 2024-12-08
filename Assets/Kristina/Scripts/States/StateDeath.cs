@@ -10,12 +10,8 @@ namespace hatsune_miku
         }
         public override void OnEnter()
         {
+            BackgroundMusic.FindObjectOfType<BackgroundMusic>().FadeOut();
             machine.anim.SetTrigger("Die");
-        }
-
-        public override void OnUpdate()
-        {
-
         }
 
         public override void ReadyNextState()

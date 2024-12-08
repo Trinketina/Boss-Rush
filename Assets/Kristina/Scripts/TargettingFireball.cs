@@ -10,20 +10,20 @@ namespace hatsune_miku
         [SerializeField] Transform initialLocation;
 
         Transform player;
-        Transform boss;
-        [SerializeField] MeshRenderer dodgeableMesh;
-        [SerializeField] MeshRenderer hitOnlyMesh;
+        CapsuleCollider boss;
+        [SerializeField] GameObject dodgeableMesh;
+        [SerializeField] GameObject lockOnMesh;
         SphereCollider scollider;
         Damager damager;
 
-        bool dodged = false;
+        //bool dodged = false;
         bool collided = false;
 
         private void Start()
         {
             player = FindObjectOfType<PlayerLogic>().transform;
             damager = GetComponent<Damager>();
-            boss = FindObjectOfType<BossManager>().transform;
+            boss = FindObjectOfType<BossManager>().bossCollider;
             scollider = GetComponent<SphereCollider>();
         }
 
@@ -34,12 +34,14 @@ namespace hatsune_miku
             transform.rotation = initialLocation.rotation;
 
             if (canDodge)
-                dodgeableMesh.enabled = true;
+                dodgeableMesh.SetActive(true);
             else
-                hitOnlyMesh.enabled = true;
+                lockOnMesh.SetActive(true);
             scollider.enabled = true;
-            dodged = false;
+            //dodged = false;
             collided = false;
+
+            ShakeHandler.ScreenShake(2f);
             StartCoroutine(FollowPlayer());
         }
 
@@ -58,7 +60,7 @@ namespace hatsune_miku
                 if (transform.position.y < 0)
                 {
                     ResetFireball();
-                    dodged = false;
+                    //dodged = false;
                     break;
                 }
 
@@ -90,11 +92,13 @@ namespace hatsune_miku
 
         private IEnumerator FollowBoss()
         {
+            if (boss == null)
+                boss = FindObjectOfType<BossManager>().bossCollider;
             while (!collided)
             {
                 float speed = 15f;
 
-                transform.LookAt(boss);
+                transform.LookAt(boss.center + boss.transform.position);
                 transform.Translate(Vector3.forward * speed * Time.deltaTime);
 
                 yield return new WaitForEndOfFrame();
@@ -113,8 +117,9 @@ namespace hatsune_miku
                 damage.direction = transform.forward + Vector3.up;
                 damage.knockbackForce = 2;
 
-                if (!damageable.Hit(damage) && canDodge)
-                    dodged = true;
+                damageable.Hit(damage);
+                /*if (!damageable.Hit(damage) && canDodge)
+                    dodged = true;*/
                 SoundEffectsManager.instance.PlayAudioClip(fireballHitSound, true);
                 collided = true;
             }
@@ -132,13 +137,13 @@ namespace hatsune_miku
                 damageable.Hit(damage);
                 SoundEffectsManager.instance.PlayAudioClip(fireballHitSound, true);
             }
-
+            ShakeHandler.ScreenShake(2f);
         }
 
         private void ResetFireball()
         {
-            dodgeableMesh.enabled = false;
-            hitOnlyMesh.enabled = false;
+            dodgeableMesh.SetActive(false);
+            lockOnMesh.SetActive(false);
             scollider.enabled = false;
 
             transform.position = initialLocation.position;
@@ -151,7 +156,7 @@ namespace hatsune_miku
             if (!scollider.enabled)
                 return;
 
-            if (dodgeableMesh.enabled)
+            if (dodgeableMesh.activeInHierarchy)
                 transform.position += Vector3.up;
             gameObject.layer = 8; //swap to PlayerDamage
 

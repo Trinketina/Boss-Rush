@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace hatsune_miku
@@ -20,9 +19,13 @@ namespace hatsune_miku
         {
             if (elapsed > delay)
             {
-                nextState = new StateShotBurst(machine, player);
-                isComplete = true;
+                ReadyNextState();
             }
+        }
+        public override void ReadyNextState()
+        {
+            nextState = new StateShotBurst(machine, player);
+            isComplete = true;
         }
     }
 }

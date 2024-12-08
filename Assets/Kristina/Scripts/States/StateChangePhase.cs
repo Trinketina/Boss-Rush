@@ -15,7 +15,7 @@ namespace hatsune_miku
 
         public override void OnUpdate()
         {
-            if (elapsed > 8)
+            if (elapsed > 5)
                 ReadyNextState();
         }
 
@@ -23,6 +23,10 @@ namespace hatsune_miku
         {
             nextState = new StateIdle(machine, player);
             isComplete = true;
+        }
+        public override void OnExit()
+        {
+            machine.HealFull();
         }
     }
 }

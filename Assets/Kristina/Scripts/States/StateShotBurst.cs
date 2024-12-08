@@ -14,9 +14,14 @@ namespace hatsune_miku
         {
             if (elapsed > delay)
             {
-                isComplete = true;
-                nextState = new StateIdle(machine, player);
+                ReadyNextState();
             }       
+        }
+
+        public override void ReadyNextState()
+        {
+            isComplete = true;
+            nextState = new StateIdle(machine, player);
         }
     }
 }

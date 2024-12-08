@@ -27,16 +27,22 @@ namespace hatsune_miku
 
             machine.transform.rotation = Quaternion.Slerp(machine.transform.rotation, rotation, .1f);
 
-            rb.velocity = machine.transform.forward * 3;
+            int speed = 2;
+            machine.transform.Translate(Vector3.forward * speed * Time.deltaTime);
 
             if (Vector3.Distance(playerPos, machinePos) < 8f)
             {
-                nextState = new StateIdle(machine, player);
-                isComplete = true;
-                rb.velocity = Vector3.zero;
+                ReadyNextState();
             }
-
-            
+        }
+        public override void ReadyNextState()
+        {
+            nextState = new StateIdle(machine, player);
+            isComplete = true;
+        }
+        public override void OnExit()
+        {
+            machine.transform.position = machine.transform.position;
         }
     }
 }

@@ -1,7 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Splines;
 
 namespace hatsune_miku
 {
@@ -18,6 +16,7 @@ namespace hatsune_miku
         public void PlaySwipe()
         {
             Instantiate(particles, this.transform);
+            ShakeHandler.ScreenShake(3f);
             StartCoroutine(AttackTrigger());
         }
 
